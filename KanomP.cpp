@@ -24,6 +24,7 @@ string Tprice[100] = {};
 int Tunit[100] = {};
 string btop[100][3] = {};
 int corder[3] = {};
+int dbpung = 0,bd = 0,cn = 0;
 
 struct Product
 {
@@ -90,13 +91,11 @@ void Selecttopping()
     Productlist();
     // int slp, intid, no, intkS, intkM, intkL, intnS, intnM, intnL, intsum, intPS, intPM, intPL, Noa;
     // int stopping, tkiM, tkiL, tniS, tniM, tniL, Qt = 0, chks, quan, conselect, flour;
-    int topids,chtop,tno,cn = 0,chid = 0,bd = 0;
+    int topids,chtop,tno,chid = 0;
     string Sizes, topid;
     char maxnum[50];
     bool ckp = false, cks = false, ckt = false, ckc = false, checkcha = false;
     bool checktop = false,checknext = false,checktt = false;
-    do
-    {
         cout << "+==========================================+" << endl;
         cout << ": ID :         Name         : Price : Unit :" << endl;
         cout << "+------------------------------------------+" << endl;
@@ -167,11 +166,13 @@ void Selecttopping()
                 if(checknextx == 'y'){
                     btop[bd][cn] = Tid[tno];
                     corder[bd] = cn+1;
+                    dbpung = bd+1;
                     cn++;
                     checktt = false;
                 }else if(checknextx == 'n'){
                     btop[bd][cn] = Tid[tno];
                      corder[bd] = cn+1;
+                      dbpung = bd+1;
                     cn++;
                     checktt = true;
                 }
@@ -182,6 +183,7 @@ void Selecttopping()
                 if(checknextx == 'y'){
                     btop[bd][cn] = Tid[tno];
                     corder[bd] = cn+1;
+                     dbpung = bd+1;
                     cn++;
                     checktt = true;
                 }else if(checknextx == 'n'){
@@ -197,8 +199,12 @@ void Selecttopping()
             chid = 0;
         } while (checktt == false);
         system("CLS");
+        bd++;
+        cn = 0;
+}
+void orderpung(){
         int coutd,anum,ar,cra;
-        for (int e = 0; e < bd+1; e++)
+        for (int e = 0; e < dbpung; e++)
         {
             cout << "+===================================+" << endl;
             cout << ": ID :         Name         : Price :" << endl;
@@ -222,10 +228,28 @@ void Selecttopping()
             }
             cout << "+===================================+" << endl;
         }
-        bd++;
-        cn = 0;
-    } while (checktop == false);
-    
+}
+
+void pungping(){
+    Selecttopping();
+    int poption;
+    bool ckpung = false;
+    do
+    {
+        cout << "1.NextPung" << endl;
+        cout << "2.ViewOrderPung" << endl;
+        cout << "3.CancelOrder" << endl;
+        cout << "4.ConfirmOrder" << endl;
+        cout << "Enter : ";
+        cin >> poption;
+        if(poption == 1){
+            Selecttopping();
+            ckpung = false;
+        }else if(poption == 2){
+            orderpung();
+            ckpung = false;
+        }
+    } while (ckpung == false);
 }
 
 void Topping()
@@ -281,13 +305,13 @@ void Orderbread()
         cin >> option;
         if (option == 'N' || option == 'n')
         {
-            Topping();
+            pungping();
 
             check = true;
         }
         else if (option == 'T' || option == 't')
         {
-            Topping();
+             pungping();
 
 
             check = true;
