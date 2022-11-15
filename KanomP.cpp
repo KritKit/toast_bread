@@ -6,10 +6,12 @@
 #include <iomanip>
 #include <algorithm>
 #include <direct.h>
+#include <Windows.h>
 using namespace std;
 void Readdata();
 void Bread();
 
+HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 int ID, Cnum = 0, OrderID, SSumtotal = 0;
 bool cjp;
 string Pid[100] = {};
@@ -19,7 +21,7 @@ string Punit[100] = {};
 string Tid[100] = {};
 string Tname[100] = {};
 string Tprice[100] = {};
-string Tunit[100] = {};
+int Tunit[100] = {};
 string btop[100][100] = {};
 
 struct Product
@@ -47,13 +49,14 @@ struct Product
 };*/
 void Productlist()
 {
+    int iunit;
     Product pd;
     ifstream read;
     read.open("C:/Pungping/product.txt");
     int x = 0;
-    cout << "+==========================================+" << endl;
-    cout << ": ID :         Name         : Price : Unit :" << endl;
-    cout << "+------------------------------------------+" << endl;
+    // cout << "+==========================================+" << endl;
+    // cout << ": ID :         Name         : Price : Unit :" << endl;
+    // cout << "+------------------------------------------+" << endl;
     while (!read.eof())
     {
         string strid;
@@ -64,16 +67,19 @@ void Productlist()
         read >> pd.unit;
 
         strid = to_string(pd.id);
+        stringstream pp;
+        pp << pd.unit;
+        pp >> iunit;
 
         Tid[x] = strid;
         Tname[x] = pd.name;
         Tprice[x] = pd.priceS;
-        Tunit[x] = pd.unit;
-        cout << right << ":" << setw(3) << Tid[x] << " : " << setw(20) << Tname[x] << " : " << setw(5) << Tprice[x] << " :" << setw(5) << Tunit[x] << " :" << endl;
+        Tunit[x] = iunit;
+        // cout << right << ":" << setw(3) << Tid[x] << " : " << setw(20) << Tname[x] << " : " << setw(5) << Tprice[x] << " :" << setw(5) << Tunit[x] << " :" << endl;
         x++;
         // cout << pd.name << endl;
     }
-    cout << "+=========================================+" << endl;
+    // cout << "+=========================================+" << endl;
     read.close();
 }
 
@@ -83,58 +89,111 @@ void Selecttopping()
     Productlist();
     // int slp, intid, no, intkS, intkM, intkL, intnS, intnM, intnL, intsum, intPS, intPM, intPL, Noa;
     // int stopping, tkiM, tkiL, tniS, tniM, tniL, Qt = 0, chks, quan, conselect, flour;
-    int topids,chtop,tno,cn = 1;
+    int topids,chtop,tno,cn = 0,chid = 0,bd = 0;
     string Sizes, topid;
     char maxnum[50];
     bool ckp = false, cks = false, ckt = false, ckc = false, checkcha = false;
-    bool checktop = false;
+    bool checktop = false,checknext = false,checktt = false;
     do
     {
+        cout << "+==========================================+" << endl;
+        cout << ": ID :         Name         : Price : Unit :" << endl;
+        cout << "+------------------------------------------+" << endl;
+        for (int j = 0; j < 100; j++)
+        {
+            if(Tid[j] != "\0"){
+                cout << right << ":" << setw(3) << Tid[j] << " : " << setw(20) << Tname[j] << " : " << setw(5) << Tprice[j] << " :" << setw(5) << Tunit[j] << " :" << endl;
+            }
+        }
+        cout << "+=========================================+" << endl;
         do
         {
-            cout << "Enter Toppingid : ";
-            cin >> topid;
-            for (int o = 0; o < topid.size(); o++)
+            do
             {
-                maxnum[o] = topid[o];
-                if (int(maxnum[o]) < 48 || int(maxnum[o]) > 57)
+                cout << "Enter Toppingid : ";
+                cin >> topid;
+                for (int o = 0; o < topid.size(); o++)
                 {
-                    checkcha = false;
-                    break;
-                }
-                else
-                {
-                    checkcha = true;
-                }
-            }
-            stringstream dd;
-            dd << topid;
-            dd >> topids;
-            if (checkcha == true)
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    stringstream ff;
-                    ff << Tid[i];
-                    ff >> chtop;
-                    if(topids != chtop){
-                        ckp = false;
-                    }else{
-                        tno = i;
-                        ckp = true;
+                    maxnum[o] = topid[o];
+                    if (int(maxnum[o]) < 48 || int(maxnum[o]) > 57)
+                    {
+                        checkcha = false;
                         break;
                     }
+                    else
+                    {
+                        checkcha = true;
+                    }
                 }
+                stringstream dd;
+                dd << topid;
+                dd >> topids;
+                if (checkcha == true)
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        stringstream ff;
+                        ff << Tid[i];
+                        ff >> chtop;
+                        if(topids != chtop){
+                            ckp = false;
+                        }else{
+                            tno = i;
+                            chid = 1;
+                            ckp = true;
+                            break;
+                        }
+                    }
+                    if(chid == 1){
+                        if(Tunit[tno] == 0){
+                            SetConsoleTextAttribute(h,4);
+                            cout << Tname[tno] << " Out of Stock" << endl;
+                            SetConsoleTextAttribute(h,7);
+                            ckp = false;
+                        }else{
+                            Tunit[tno] =  Tunit[tno] - 1;
+                            ckp = true;
+                        }
+                    }
+                }
+            } while (ckp == false);
+            if(chid == 1){
+            chid = 0;
+            char checknextx;
+            if(cn < 3){
+                cout << cn + 1 << ". " << Tname[tno] << endl;
+                cout << "Next Topping (y/n) : "; 
+                cin >> checknextx;
+                if(checknextx == 'y'){
+                    checktt = false;
+                    cn++;
+                }else if(checknextx == 'n'){
+                    checktt = true;
+                }
+            }else if(cn < 4){
+                cout << cn << ". " << Tname[tno] << endl;
+                cout << "Confirm (y/n) : "; 
+                cin >> checknextx;
+                if(checknextx == 'y'){
+                    checktt = false;
+                    cn++;
+                }else if(checknextx == 'n'){
+                    checktt = true;
+                }
+            }else if(cn == 4){
+                cout << "Firm" << endl;
+                checktt = true;
             }
-        } while (ckp == false);
-
-       cout << cn << ". " << Tname[tno] << endl;
-       cn++;
-    if(cn == 4){
-        checktop = true;
-    }else{
-        checktop = false;
-    }
+            cout << cn << endl;
+            if(cn == 4 || checknextx == 'n'){
+                checktt = true;
+            }else{
+                checktt = false;
+            }
+            }
+        } while (checktt == false);
+        cn = 0;
+        system("CLS");
     } while (checktop == false);
     
 }
