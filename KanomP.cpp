@@ -22,7 +22,8 @@ string Tid[100] = {};
 string Tname[100] = {};
 string Tprice[100] = {};
 int Tunit[100] = {};
-string btop[100][100] = {};
+string btop[100][3] = {};
+int corder[3] = {};
 
 struct Product
 {
@@ -158,42 +159,71 @@ void Selecttopping()
                 }
             } while (ckp == false);
             if(chid == 1){
-            chid = 0;
             char checknextx;
-            if(cn < 3){
+            if(cn < 2){
                 cout << cn + 1 << ". " << Tname[tno] << endl;
                 cout << "Next Topping (y/n) : "; 
                 cin >> checknextx;
                 if(checknextx == 'y'){
-                    checktt = false;
+                    btop[bd][cn] = Tid[tno];
+                    corder[bd] = cn+1;
                     cn++;
+                    checktt = false;
                 }else if(checknextx == 'n'){
+                    btop[bd][cn] = Tid[tno];
+                     corder[bd] = cn+1;
+                    cn++;
                     checktt = true;
                 }
-            }else if(cn < 4){
+            }else if(cn < 3){
                 cout << cn << ". " << Tname[tno] << endl;
                 cout << "Confirm (y/n) : "; 
                 cin >> checknextx;
                 if(checknextx == 'y'){
-                    checktt = false;
+                    btop[bd][cn] = Tid[tno];
+                    corder[bd] = cn+1;
                     cn++;
-                }else if(checknextx == 'n'){
                     checktt = true;
+                }else if(checknextx == 'n'){
+                    for (int d = 0; d < cn; d++)
+                    {
+                        btop[bd][d] = {};
+                    }
+                    cn = 0;
+                    checktt = false;
                 }
-            }else if(cn == 4){
-                cout << "Firm" << endl;
-                checktt = true;
-            }
-            cout << cn << endl;
-            if(cn == 4 || checknextx == 'n'){
-                checktt = true;
-            }else{
-                checktt = false;
             }
             }
+            chid = 0;
         } while (checktt == false);
-        cn = 0;
         system("CLS");
+        int coutd,anum,ar,cra;
+        for (int e = 0; e < bd+1; e++)
+        {
+            cout << "+===================================+" << endl;
+            cout << ": ID :         Name         : Price :" << endl;
+            cout << "+-----------------------------------+" << endl;
+            for (int v = 0; v < corder[e]; v++)
+            {
+                stringstream aa;
+                aa << btop[e][v];
+                aa >> anum;
+                for (int l = 0; l < 100; l++)
+                {
+                    stringstream gh;
+                    gh << Tid[l];
+                    gh >> ar;
+                    if(anum == ar){
+                        cra = l;
+                        break;
+                    }
+                }
+                cout << right << ":" << setw(3) << Tid[cra] << " : " << setw(20) << Tname[cra] << " : " << setw(5) << Tprice[cra] << " :" << endl;
+            }
+            cout << "+===================================+" << endl;
+        }
+        bd++;
+        cn = 0;
     } while (checktop == false);
     
 }
