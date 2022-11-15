@@ -89,11 +89,11 @@ void Selecttopping()
 {
     system("CLS");
     Productlist();
-    int topids,chtop,tno,chid = 0,chkn = 0;
+    int topids,chtop,tno,chid = 0,chkn = 0,chre;
     string Sizes, topid;
     char maxnum[50];
     bool ckp = false, cks = false, ckt = false, ckc = false, checkcha = false;
-    bool checktop = false,checknext = false,checktt = false;
+    bool checktop = false,checknext = false,checktt = false,chrep = false;
         cout << "+==========================================+" << endl;
         cout << ": ID :         Name         : Price : Unit :" << endl;
         cout << "+------------------------------------------+" << endl;
@@ -126,8 +126,7 @@ void Selecttopping()
                 stringstream dd;
                 dd << topid;
                 dd >> topids;
-                if (checkcha == true)
-                {
+                if (checkcha == true){
                     for (int i = 0; i < 100; i++)
                     {
                         stringstream ff;
@@ -138,66 +137,83 @@ void Selecttopping()
                         }else{
                             tno = i;
                             chid = 1;
-                            ckp = true;
+                            // ckp = true;
                             break;
                         }
                     }
                     if(chid == 1){
-                        if(Tunit[tno] == 0){
-                            SetConsoleTextAttribute(h,4);
-                            cout << Tname[tno] << " Out of Stock" << endl;
-                            SetConsoleTextAttribute(h,7);
-                            ckp = false;
-                        }else{
-                            Tunit[tno] =  Tunit[tno] - 1;
-                            ckp = true;
+                        for (int g = 0; g < bd+1; g++){
+                            stringstream ee;
+                            ee << btop[bd][g];
+                            ee >> chre;
+                            if(chre != topids){
+                                chrep = true;
+                            }else{
+                                cout << Tname[tno] << "" << endl;
+                                chid = 0;
+                                chrep = false;
+                                break;
+                            }
+                        }
+                        if(chrep == true){
+                            if(Tunit[tno] == 0){
+                                SetConsoleTextAttribute(h,4);
+                                cout << Tname[tno] << " Out of Stock" << endl;
+                                SetConsoleTextAttribute(h,7);
+                                chid = 0;
+                                ckp = false;
+                            }else{
+                                Tunit[tno] =  Tunit[tno] - 1;
+                                ckp = true;
+                            }
                         }
                     }
                 }
             } while (ckp == false);
             if(chid == 1){
-            char checknextx;
-            if(cn < 2){
-                cout << cn + 1 << ". " << Tname[tno] << endl;
-                cout << "Next Topping (y/n) : "; 
-                cin >> checknextx;
-                if(checknextx == 'y'){
-                    btop[bd][cn] = Tid[tno];
-                    corder[bd] = cn+1;
-                    dbpung = bd+1;
-                    cn++;
-                    checktt = false;
-                }else if(checknextx == 'n'){
-                    btop[bd][cn] = Tid[tno];
-                     corder[bd] = cn+1;
-                      dbpung = bd+1;
-                    cn++;
-                    checktt = true;
-                }
-            }else if(cn < 3){
-                cout << cn + 1 << ". " << Tname[tno] << endl;
-                cout << "Confirm (y/n) : "; 
-                cin >> checknextx;
-                if(checknextx == 'y'){
-                    btop[bd][cn] = Tid[tno];
-                    corder[bd] = cn+1;
-                     dbpung = bd+1;
-                    cn++;
-                    checktt = true;
-                }else if(checknextx == 'n'){
-                    cout << bd << endl;
-                    for (int d = 0; d < cn; d++)
-                    {
-                        btop[bd][d] = {};
-                    }
-                    chkn = true;
-                    cn = 0;
-                    dbpung = bd;
-                    checktt = true;
-                }
-            }
-            }
             chid = 0;
+            chrep = false;
+            char checknextx;
+                if(cn < 2){
+                    cout << cn + 1 << ". " << Tname[tno] << endl;
+                    cout << "Next Topping (y/n) : "; 
+                    cin >> checknextx;
+                    if(checknextx == 'y'){
+                        btop[bd][cn] = Tid[tno];
+                        corder[bd] = cn+1;
+                        dbpung = bd+1;
+                        cn++;
+                        checktt = false;
+                    }else if(checknextx == 'n'){
+                        btop[bd][cn] = Tid[tno];
+                        corder[bd] = cn+1;
+                        dbpung = bd+1;
+                        cn++;
+                        checktt = true;
+                    }
+                }else if(cn < 3){
+                    cout << cn + 1 << ". " << Tname[tno] << endl;
+                    cout << "Confirm (y/n) : "; 
+                    cin >> checknextx;
+                    if(checknextx == 'y'){
+                        btop[bd][cn] = Tid[tno];
+                        corder[bd] = cn+1;
+                        dbpung = bd+1;
+                        cn++;
+                        checktt = true;
+                    }else if(checknextx == 'n'){
+                        cout << bd << endl;
+                        for (int d = 0; d < cn; d++)
+                        {
+                            btop[bd][d] = {};
+                        }
+                        chkn = true;
+                        cn = 0;
+                        dbpung = bd;
+                        checktt = true;
+                    }
+                }
+            }
         } while (checktt == false);
         if(chkn == false){
         bd++;
