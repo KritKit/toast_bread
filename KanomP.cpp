@@ -230,9 +230,9 @@ void orderpung(){
         int coutd,anum,ar,cra;
         for (int e = 0; e < dbpung; e++)
         {
-            cout << "#<============================================>#" << endl;
-            cout << "| ID |     Topping Name     | Price |   Spoon  |" << endl;
-            cout << "#<-------------------------------------------->#" << endl;
+            cout << "#<=================================>#" << endl;
+            cout << "| ID |     Topping Name     | Price |" << endl;
+            cout << "#<--------------------------------->#" << endl;
             for (int v = 0; v < corder[e]; v++)
             {
                 stringstream aa;
@@ -251,7 +251,7 @@ void orderpung(){
                 cout << right << "|" << setw(3) << Tid[cra] << " | " << setw(20) << Tname[cra] << " | " << setw(4) << Tprice[cra] << ".-"  << "|" << endl;
             
             }
-            cout << "#<============================================>#" << endl;
+            cout << "#<=================================>#" << endl;
         }
 }
 void ordercancel(){
@@ -272,10 +272,10 @@ void pungping(){
     bool ckpung = false;
     do
     {
-        cout << "1.NextPung" << endl;
-        cout << "2.ViewOrderPung" << endl;
-        cout << "3.CancelOrder" << endl;
-        cout << "4.ConfirmOrder" << endl;
+        cout << "1. NextBread" << endl;
+        cout << "2. ViewOrder" << endl;
+        cout << "3. CancelOrder" << endl;
+        cout << "4. ConfirmOrder" << endl;
         cout << "Enter : ";
         cin >> poption;
         if(poption == 1){
