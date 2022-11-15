@@ -10,22 +10,16 @@ using namespace std;
 void Readdata();
 void Bread();
 
-
-
-
-
 int ID, Cnum = 0, OrderID, SSumtotal = 0;
 bool cjp;
 string Pid[100] = {};
 string Pname[100] = {};
 string PpriceS[100] = {};
 string Punit[100] = {};
-
-/*int Oid[3] = {};
-int Ono[3] = {};
-string Osize[3] = {};
-int Oquan[3] = {};
-int Ofour[3] = {};*/
+string Tid[100] = {};
+string Tname[100] = {};
+string Tprice[100] = {};
+string Tunit[100] = {};
 
 struct Product
 {
@@ -50,16 +44,48 @@ struct Product
     int Orderyear;
     string Ordertime;
 };*/
+void Productlist()
+{
+    Product pd;
+    ifstream read;
+    read.open("C:/Pungping/product.txt");
+    int x = 0;
+    cout << "+==========================================+" << endl;
+    cout << ": ID :         Name         : Price : Unit :" << endl;
+    cout << "+------------------------------------------+" << endl;
+    while (!read.eof())
+    {
+        string strid;
+        read >> pd.id;
+        read.ignore();
+        getline(read, pd.name);
+        read >> pd.priceS;
+        read >> pd.unit;
+
+        strid = to_string(pd.id);
+
+        Tid[x] = strid;
+        Tname[x] = pd.name;
+        Tprice[x] = pd.priceS;
+        Tunit[x] = pd.unit;
+        cout << right << ":" << setw(3) << Tid[x] << " : " << setw(20) << Tname[x] << " : " << setw(5) << Tprice[x] << " :" << setw(5) << Tunit[x] << " :" << endl;
+        x++;
+        // cout << pd.name << endl;
+    }
+    cout << "+=========================================+" << endl;
+    read.close();
+}
 
 void Selecttopping()
 {
-    Readdata();
-    int slp, intid, no, intkS, intkM, intkL, intnS, intnM, intnL, intsum, intPS, intPM, intPL, Noa;
-    int stopping, tkiM, tkiL, tniS, tniM, tniL, Qt = 0, chks, quan, conselect, flour;
+    Productlist();
+    // int slp, intid, no, intkS, intkM, intkL, intnS, intnM, intnL, intsum, intPS, intPM, intPL, Noa;
+    // int stopping, tkiM, tkiL, tniS, tniM, tniL, Qt = 0, chks, quan, conselect, flour;
+    int topids,chtop;
     string Sizes, topid;
     char maxnum[50];
     bool ckp = false, cks = false, ckt = false, ckc = false, checkcha = false;
-
+    cout << Tname[0] << endl;
      do
     {
         cout << "Enter Toppingid : ";
@@ -77,48 +103,21 @@ void Selecttopping()
                 checkcha = true;
             }
         }
+        stringstream dd;
+        dd << topid;
+        dd >> topids;
         if (checkcha == true)
         {
-            checkcha = false;
-            stringstream kk;
-            kk << topid;
-            kk >> slp;
             for (int i = 0; i < 100; i++)
             {
-                stringstream sw;
-                sw << Pid[i];
-                sw >> intid;
-                if (slp == intid)
-                {
+                stringstream ff;
+                ff << Tid[i];
+                ff >> chtop;
+                if(topids != chtop){
+                    ckp = false;
+                }else{
                     ckp = true;
-                    no = i;
-                    chks = 1;
                     break;
-                }
-                else if (slp == 0)
-                {
-                    cjp = true;
-                    ckp = true;
-                }
-                else
-                {
-                    chks = 0;
-                    ckp = false;
-                }
-            }
-            if (chks == 1)
-            {
-                stringstream ttopping;
-                ttopping << Punit[no];
-                ttopping >> stopping;
-
-                Qt = stopping;
-
-                if (Qt == 0)
-                {
-                    cout << Pname[no] << "Out of Stock" << endl;
-                    ckp = false;
-                    chks = 0;
                 }
             }
         }
@@ -262,6 +261,7 @@ void Bread()
 
 void Readdata()
 {
+    int x = 0;
     Product pd;
     ifstream read;
     read.open("C:/Pungping/product.txt");
@@ -280,40 +280,6 @@ void Readdata()
     cout << "+===========================================+" << endl;
     read.close();
 
-}
-
-void Productlist()
-{
-    Product pd;
-    ifstream read;
-    read.open("C:/Pungping/product.txt");
-    int x = 0;
-    cout << "+==========================================+" << endl;
-    cout << ": ID :         Name         : Price : Unit :" << endl;
-    cout << "+------------------------------------------+" << endl;
-
-    while (!read.eof())
-    {
-        string strid;
-
-        read >> pd.id;
-        read.ignore();
-        getline(read, pd.name);
-        read >> pd.priceS;
-        read >> pd.unit;
-
-        strid = to_string(pd.id);
-
-        Pid[x] = strid;
-        Pname[x] = pd.name;
-        PpriceS[x] = pd.priceS;
-        Punit[x] = pd.unit;
-
-        cout << right << ":" << setw(3) << Pid[x] << " : " << setw(20) << Pname[x] << " : " << setw(5) << PpriceS[x] << " :" << setw(5) << " :" << endl;
-        x++;
-    }
-    cout << "+=========================================+" << endl;
-    read.close();
 }
 
 int searchData()
@@ -355,8 +321,6 @@ void Updatedata()
         cout << "Enter new product name : ";
         cin.get();
         getline(cin, newData.name);
-        cout << "Enter name : ";
-        cin >> newData.name;
         cout << "Enter price : ";
         cin >> newData.priceS;
         cout << "Enter unit : ";
