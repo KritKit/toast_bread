@@ -137,7 +137,6 @@ void Selecttopping()
                         }else{
                             tno = i;
                             chid = 1;
-                            // ckp = true;
                             break;
                         }
                     }
@@ -254,7 +253,6 @@ void orderpung(){
             cout << "+===================================+" << endl;
         }
 }
-
 void ordercancel(){
     dbpung = 0;
     bd = 0;
@@ -267,7 +265,6 @@ void ordercancel(){
         }
     }
 }
-
 void pungping(){
     Selecttopping();
     int poption;
