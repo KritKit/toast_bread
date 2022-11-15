@@ -91,7 +91,7 @@ void Selecttopping()
     Productlist();
     // int slp, intid, no, intkS, intkM, intkL, intnS, intnM, intnL, intsum, intPS, intPM, intPL, Noa;
     // int stopping, tkiM, tkiL, tniS, tniM, tniL, Qt = 0, chks, quan, conselect, flour;
-    int topids,chtop,tno,chid = 0;
+    int topids,chtop,tno,chid = 0,chkn = 0;
     string Sizes, topid;
     char maxnum[50];
     bool ckp = false, cks = false, ckt = false, ckc = false, checkcha = false;
@@ -177,7 +177,7 @@ void Selecttopping()
                     checktt = true;
                 }
             }else if(cn < 3){
-                cout << cn << ". " << Tname[tno] << endl;
+                cout << cn + 1 << ". " << Tname[tno] << endl;
                 cout << "Confirm (y/n) : "; 
                 cin >> checknextx;
                 if(checknextx == 'y'){
@@ -187,20 +187,25 @@ void Selecttopping()
                     cn++;
                     checktt = true;
                 }else if(checknextx == 'n'){
+                    cout << bd << endl;
                     for (int d = 0; d < cn; d++)
                     {
                         btop[bd][d] = {};
                     }
+                    chkn = true;
                     cn = 0;
-                    checktt = false;
+                    dbpung = bd;
+                    checktt = true;
                 }
             }
             }
             chid = 0;
         } while (checktt == false);
-        system("CLS");
+        if(chkn == false){
         bd++;
         cn = 0;
+        }
+        chkn = false;
 }
 void orderpung(){
         int coutd,anum,ar,cra;
