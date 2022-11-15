@@ -20,6 +20,7 @@ string Tid[100] = {};
 string Tname[100] = {};
 string Tprice[100] = {};
 string Tunit[100] = {};
+string btop[100][100] = {};
 
 struct Product
 {
@@ -78,50 +79,64 @@ void Productlist()
 
 void Selecttopping()
 {
+    system("CLS");
     Productlist();
     // int slp, intid, no, intkS, intkM, intkL, intnS, intnM, intnL, intsum, intPS, intPM, intPL, Noa;
     // int stopping, tkiM, tkiL, tniS, tniM, tniL, Qt = 0, chks, quan, conselect, flour;
-    int topids,chtop;
+    int topids,chtop,tno,cn = 1;
     string Sizes, topid;
     char maxnum[50];
     bool ckp = false, cks = false, ckt = false, ckc = false, checkcha = false;
-    cout << Tname[0] << endl;
-     do
+    bool checktop = false;
+    do
     {
-        cout << "Enter Toppingid : ";
-        cin >> topid;
-        for (int o = 0; o < topid.size(); o++)
+        do
         {
-            maxnum[o] = topid[o];
-            if (int(maxnum[o]) < 48 || int(maxnum[o]) > 57)
+            cout << "Enter Toppingid : ";
+            cin >> topid;
+            for (int o = 0; o < topid.size(); o++)
             {
-                checkcha = false;
-                break;
-            }
-            else
-            {
-                checkcha = true;
-            }
-        }
-        stringstream dd;
-        dd << topid;
-        dd >> topids;
-        if (checkcha == true)
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                stringstream ff;
-                ff << Tid[i];
-                ff >> chtop;
-                if(topids != chtop){
-                    ckp = false;
-                }else{
-                    ckp = true;
+                maxnum[o] = topid[o];
+                if (int(maxnum[o]) < 48 || int(maxnum[o]) > 57)
+                {
+                    checkcha = false;
                     break;
                 }
+                else
+                {
+                    checkcha = true;
+                }
             }
-        }
-    } while (ckp == false);
+            stringstream dd;
+            dd << topid;
+            dd >> topids;
+            if (checkcha == true)
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    stringstream ff;
+                    ff << Tid[i];
+                    ff >> chtop;
+                    if(topids != chtop){
+                        ckp = false;
+                    }else{
+                        tno = i;
+                        ckp = true;
+                        break;
+                    }
+                }
+            }
+        } while (ckp == false);
+
+       cout << cn << ". " << Tname[tno] << endl;
+       cn++;
+    if(cn == 4){
+        checktop = true;
+    }else{
+        checktop = false;
+    }
+    } while (checktop == false);
+    
 }
 
 void Topping()
