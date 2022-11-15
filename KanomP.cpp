@@ -89,8 +89,6 @@ void Selecttopping()
 {
     system("CLS");
     Productlist();
-    // int slp, intid, no, intkS, intkM, intkL, intnS, intnM, intnL, intsum, intPS, intPM, intPL, Noa;
-    // int stopping, tkiM, tkiL, tniS, tniM, tniL, Qt = 0, chks, quan, conselect, flour;
     int topids,chtop,tno,chid = 0,chkn = 0;
     string Sizes, topid;
     char maxnum[50];
@@ -311,14 +309,11 @@ void Orderbread()
         if (option == 'N' || option == 'n')
         {
             pungping();
-
             check = true;
         }
         else if (option == 'T' || option == 't')
         {
-             pungping();
-
-
+            pungping();
             check = true;
         }
         else if (option == 'X' || option == 'x')
@@ -364,32 +359,6 @@ void Addproduct()
 void print(Product s)
 {
     cout << right << ":" << setw(3) << s.id << " : " << setw(20) << s.name << " : " << setw(5) << s.priceS << " :" << setw(5) << s.unit << "  :" << endl;
-}
-
-
-void Bread()
-{
-    int conselect;
-    char can, con;
-    Orderbread();
-    bool checkbread = false;
-    do{
-            cout << "1.Select Next Bread" << endl;
-            // cout << "2.ViewOrder" << endl;
-            // cout << "3.CancelOrder" << endl;
-            // cout << "4.ConfirmOrder" << endl;
-            cout << "Enter Select : ";
-            cin >> conselect;
-            if(conselect == 1){              
-                system("CLS");
-                checkbread = true;
-                Bread();
-                
-            }else if(conselect == 2){
-                system("CLS");
-                checkbread = true;
-            }
-       } while (checkbread == false);
 }
 
 void Readdata()
@@ -712,7 +681,7 @@ void select()
         if (option == 1)
         {
             system("CLS");
-            Bread();
+            Orderbread();
 
             check = false;
         }
