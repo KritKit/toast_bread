@@ -10,9 +10,6 @@ using namespace std;
 void Readdata();
 void Bread();
 
-
-
-
 int ID, Cnum = 0, OrderID, SSumtotal = 0;
 bool cjp;
 string Pid[100] = {};
