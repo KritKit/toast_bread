@@ -94,16 +94,16 @@ void Selecttopping()
     char maxnum[50];
     bool ckp = false, cks = false, ckt = false, ckc = false, checkcha = false;
     bool checktop = false,checknext = false,checktt = false,chrep = false,chker = false;
-        cout << "+==========================================+" << endl;
-        cout << ": ID :         Name         : Price : Unit :" << endl;
-        cout << "+------------------------------------------+" << endl;
+        cout << "*==============================================*" << endl;
+        cout << "| ID |     Topping Name     | Price | Quantity |" << endl;
+        cout << "*----------------------------------------------*" << endl;
         for (int j = 0; j < 100; j++)
         {
             if(Tid[j] != "\0"){
-                cout << right << ":" << setw(3) << Tid[j] << " : " << setw(20) << Tname[j] << " : " << setw(5) << Tprice[j] << " :" << setw(5) << Tunit[j] << " :" << endl;
+                cout << right << "|" << setw(3) << Tid[j] << " | " << setw(20) << Tname[j] << " | " << setw(5) << Tprice[j] << " |" << setw(9) << Tunit[j] << " |" << endl;
             }
         }
-        cout << "+=========================================+" << endl;
+        cout << "*==============================================*" << endl;
         do
         {
             do
