@@ -94,21 +94,21 @@ void Selecttopping()
     char maxnum[50];
     bool ckp = false, cks = false, ckt = false, ckc = false, checkcha = false;
     bool checktop = false,checknext = false,checktt = false,chrep = false,chker = false;
-        cout << "*==============================================*" << endl;
-        cout << "| ID |     Topping Name     | Price | Quantity |" << endl;
-        cout << "*----------------------------------------------*" << endl;
+        cout << "#<============================================>#" << endl;
+        cout << "| ID |     Topping Name     | Price |   Spoon  |" << endl;
+        cout << "#<-------------------------------------------->#" << endl;
         for (int j = 0; j < 100; j++)
         {
             if(Tid[j] != "\0"){
-                cout << right << "|" << setw(3) << Tid[j] << " | " << setw(20) << Tname[j] << " | " << setw(5) << Tprice[j] << " |" << setw(9) << Tunit[j] << " |" << endl;
+                cout << right << "|" << setw(3) << Tid[j] << " | " << setw(20) << Tname[j] << " | " << setw(4) << Tprice[j] << ".-" << "|" << setw(9) << Tunit[j] << " |" << endl;
             }
         }
-        cout << "*==============================================*" << endl;
+        cout << "#<============================================>#" << endl;
         do
         {
             do
             {
-                cout << "Enter Toppingid : ";
+                cout << "Enter ToppingID : ";
                 cin >> topid;
                 for (int o = 0; o < topid.size(); o++)
                 {
@@ -230,9 +230,9 @@ void orderpung(){
         int coutd,anum,ar,cra;
         for (int e = 0; e < dbpung; e++)
         {
-            cout << "+===================================+" << endl;
-            cout << ": ID :         Name         : Price :" << endl;
-            cout << "+-----------------------------------+" << endl;
+            cout << "#<============================================>#" << endl;
+            cout << "| ID |     Topping Name     | Price |   Spoon  |" << endl;
+            cout << "#<-------------------------------------------->#" << endl;
             for (int v = 0; v < corder[e]; v++)
             {
                 stringstream aa;
@@ -248,9 +248,10 @@ void orderpung(){
                         break;
                     }
                 }
-                cout << right << ":" << setw(3) << Tid[cra] << " : " << setw(20) << Tname[cra] << " : " << setw(5) << Tprice[cra] << " :" << endl;
+                cout << right << "|" << setw(3) << Tid[cra] << " | " << setw(20) << Tname[cra] << " | " << setw(4) << Tprice[cra] << ".-"  << "|" << endl;
+            
             }
-            cout << "+===================================+" << endl;
+            cout << "#<============================================>#" << endl;
         }
 }
 void ordercancel(){
@@ -401,9 +402,9 @@ void Readdata()
     Product pd;
     ifstream read;
     read.open("C:/Pungping/product.txt");
-    cout << "+===========================================+" << endl;
-    cout << ": ID :         Name         : Price : Unit  :" << endl;
-    cout << "+-------------------------------------------+" << endl;
+        cout << "#<============================================>#" << endl;
+        cout << "| ID |     Topping Name     | Price |   Spoon  |" << endl;
+        cout << "#<-------------------------------------------->#" << endl;
     while (!read.eof())
     {
         read >> pd.id;
@@ -413,7 +414,7 @@ void Readdata()
         read >> pd.unit;
         print(pd);
     }
-    cout << "+===========================================+" << endl;
+        cout << "#<============================================>#" << endl;
     read.close();
 
 }
@@ -435,11 +436,11 @@ int searchData()
         read >> pd.unit;
         if (pd.id == id)
         {
-            cout << "+===========================================+" << endl;
-            cout << ": ID :         Name         : Price : Unit  :" << endl;
-            cout << "+-------------------------------------------+" << endl;
+        cout << "#<============================================>#" << endl;
+        cout << "| ID |     Topping Name     | Price |   Spoon  |" << endl;
+        cout << "#<-------------------------------------------->#" << endl;
             print(pd);
-            cout << "+===========================================+" << endl;
+        cout << "#<============================================>#" << endl;
             return id;
         }
     }
