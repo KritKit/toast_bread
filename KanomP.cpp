@@ -255,44 +255,42 @@ void pungping(){
     } while (ckpung == false);
 }
 
-void Topping()
-{
-    cout << endl;
-    int conselect;
-    char can, con;
-    Selecttopping();
-    bool ckc = false;
-    do{
-        if(Cnum == 2){
-            cout << endl;
-            cout << "1.ViewOrder" << endl;
-            cout << "2.CancelOrder" << endl;
-            cout << "3.ConfirmOrder" << endl;
-            cout << "Enter Select : ";
-            cin >> conselect;
-            if(conselect == 1){
-
-            }else if(conselect == 2){
-
-            }else if(conselect == 3){
-            }else{
-                ckc = false;
-            }
-        }else{
-            cout << endl;
-            cout << "1.Next Topping" << endl;
-            cout << "2.Confirm" << endl;
-            cout << "Enter Select : ";
-            cin >> conselect;
-            if(conselect == 1){
-                Cnum += 1;
-                Topping();
-            }else if(conselect == 2){
-                Bread();
-            }
-        }
-    } while (ckc == false);
-}
+// void Topping()
+// {
+//     cout << endl;
+//     int conselect;
+//     char can, con;
+//     Selecttopping();
+//     bool ckc = false;
+//     do{
+//         if(Cnum == 2){
+//             cout << endl;
+//             cout << "1.ViewOrder" << endl;
+//             cout << "2.CancelOrder" << endl;
+//             cout << "3.ConfirmOrder" << endl;
+//             cout << "Enter Select : ";
+//             cin >> conselect;
+//             if(conselect == 1){
+//             }else if(conselect == 2){
+//             }else if(conselect == 3){
+//             }else{
+//                 ckc = false;
+//             }
+//         }else{
+//             cout << endl;
+//             cout << "1.Next Topping" << endl;
+//             cout << "2.Confirm" << endl;
+//             cout << "Enter Select : ";
+//             cin >> conselect;
+//             if(conselect == 1){
+//                 Cnum += 1;
+//                 Topping();
+//             }else if(conselect == 2){
+//                 Bread();
+//             }
+//         }
+//     } while (ckc == false);
+// }
 
 
 void Orderbread()
