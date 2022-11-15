@@ -155,7 +155,7 @@ void Selecttopping()
                             }
                         }
                         if(chrep == false){
-                            cout << Tname[tno] << " repeated topping" << endl;
+                            cout << Tname[tno] << " Repeated Topping" << endl;
                         }
                         if(chker == false){
                             if(Tunit[tno] == 0){
@@ -181,7 +181,7 @@ void Selecttopping()
             char checknextx;
                 if(cn < 2){
                     cout << cn + 1 << ". " << Tname[tno] << endl;
-                    cout << "Next Topping (y/n) : "; 
+                    cout << "More Topping? (y/n) : "; 
                     cin >> checknextx;
                     if(checknextx == 'y'){
                         btop[bd][cn] = Tid[tno];
