@@ -93,7 +93,7 @@ void Selecttopping()
     string Sizes, topid;
     char maxnum[50];
     bool ckp = false, cks = false, ckt = false, ckc = false, checkcha = false;
-    bool checktop = false,checknext = false,checktt = false,chrep = false;
+    bool checktop = false,checknext = false,checktt = false,chrep = false,chker = false;
         cout << "+==========================================+" << endl;
         cout << ": ID :         Name         : Price : Unit :" << endl;
         cout << "+------------------------------------------+" << endl;
@@ -142,20 +142,23 @@ void Selecttopping()
                         }
                     }
                     if(chid == 1){
-                        for (int g = 0; g < bd+1; g++){
+                        for (int g = 0; g < 10; g++){
                             stringstream ee;
                             ee << btop[bd][g];
                             ee >> chre;
                             if(chre != topids){
                                 chrep = true;
                             }else{
-                                cout << Tname[tno] << "" << endl;
                                 chid = 0;
                                 chrep = false;
+                                chker = true;
                                 break;
                             }
                         }
-                        if(chrep == true){
+                        if(chrep == false){
+                            cout << Tname[tno] << " repeated topping" << endl;
+                        }
+                        if(chker == false){
                             if(Tunit[tno] == 0){
                                 SetConsoleTextAttribute(h,4);
                                 cout << Tname[tno] << " Out of Stock" << endl;
@@ -163,16 +166,19 @@ void Selecttopping()
                                 chid = 0;
                                 ckp = false;
                             }else{
-                                Tunit[tno] =  Tunit[tno] - 1;
+                                Tunit[tno] = Tunit[tno] - 1;
                                 ckp = true;
                             }
                         }
                     }
                 }
+                chrep = false;
+                chker = false;
             } while (ckp == false);
             if(chid == 1){
             chid = 0;
             chrep = false;
+            chker = false;
             char checknextx;
                 if(cn < 2){
                     cout << cn + 1 << ". " << Tname[tno] << endl;
