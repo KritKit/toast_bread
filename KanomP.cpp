@@ -233,6 +233,19 @@ void orderpung(){
         }
 }
 
+void ordercancel(){
+    dbpung = 0;
+    bd = 0;
+    cn = 0;
+    for (int i = 0; i < 100; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            btop[i][j] = {};
+        }
+    }
+}
+
 void pungping(){
     Selecttopping();
     int poption;
@@ -251,6 +264,10 @@ void pungping(){
         }else if(poption == 2){
             orderpung();
             ckpung = false;
+        }else if(poption == 3){
+            ordercancel();
+            system("CLS");
+            ckpung = true;
         }
     } while (ckpung == false);
 }
