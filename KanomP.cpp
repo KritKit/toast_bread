@@ -287,7 +287,7 @@ void payment()
         }
     }
     pung = 10 * dbpung;
-    cout << sumtop + pung << endl;
+    cout << "|" << setw(18) << sumtop + pung << ".-" << setw(16) << "|" << endl;
 }
 
 void orderpung()
