@@ -282,6 +282,62 @@ void ordercancel(){
     }
 }
 
+
+
+void updateorder(int &oid){
+    cout << oid << endl;
+    string strid;
+    int intunit;
+    Product pd;
+    string orid[100] = {};
+    ofstream tempFile;
+    tempFile.open("C:/Pungping/temp.txt");
+    ifstream read;
+    read.open("C:/Pungping/product.txt");
+    while (!read.eof())
+    {
+        read >> pd.id;
+        read.ignore();
+        getline(read, pd.name);
+        read >> pd.priceS;
+        read >> pd.unit;
+        strid = to_string(pd.id);
+        if(oid == pd.id){
+            stringstream p;
+            p << pd.unit;
+            p >> intunit;
+            tempFile << "\n" << pd.id;
+            tempFile << "\n" << pd.name;
+            tempFile << "\n" << pd.priceS;
+            tempFile << "\n" << intunit - 1;
+        }else{
+            tempFile << "\n" << pd.id;
+            tempFile << "\n" << pd.name;
+            tempFile << "\n" << pd.priceS;
+            tempFile << "\n" << pd.unit;
+        }
+    }
+    read.close();
+    tempFile.close();
+    remove("C:/Pungping/product.txt");
+    rename("C:/Pungping/temp.txt", "C:/Pungping/product.txt");
+}
+
+void confirmorder(){
+     int coutd,anum,ar,cra,inttop;
+    for (int e = 0; e < dbpung; e++)
+        {
+            for (int v = 0; v < corder[e]; v++)
+            {
+                stringstream tt;
+                tt << btop[e][v];
+                tt >> inttop;
+                updateorder(inttop);
+            }
+        }
+        ordercancel();
+}
+
 void Orderbread()
 {
     Productlist();
@@ -339,6 +395,7 @@ void Orderbread()
                 system("CLS");
                 check = true;
             }else if(option == '3'){
+                confirmorder();
                 check = true;
             }else{
                 check = false;
