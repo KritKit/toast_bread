@@ -762,9 +762,9 @@ void Creatfile()
     ofstream pidfile("C:/Pungping/id.txt");
     pidfile << "6";
     pidfile.close();
-    /*ofstream oidfile("C:/Pungping/orderid.txt");
+    ofstream oidfile("C:/Pungping/orderid.txt");
     oidfile << "0";
-    oidfile.close();*/
+    oidfile.close();
     ofstream productfile("C:/Pungping/product.txt");
     productfile << "\n" << "1";
     productfile << "\n" << "Sugar";
@@ -796,8 +796,8 @@ void Creatfile()
     productfile << "\n" << "5";
     productfile << "\n" << "100";
     productfile.close();
-    /*ofstream orderfile("C:/Pungping/order.txt");
-    orderfile.close();*/
+    ofstream orderfile("C:/Pungping/order.txt");
+    orderfile.close();
     ofstream openfile("C:/Pungping/open.dll");
     openfile.close();
 }
