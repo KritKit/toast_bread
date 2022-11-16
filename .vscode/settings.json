@@ -6,6 +6,7 @@
         "iomanip": "cpp",
         "xstring": "cpp",
         "ios": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "istream": "cpp"
     }
 }

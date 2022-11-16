@@ -24,7 +24,7 @@ string Tprice[100] = {};
 string Ttype[100] = {};
 int Tunit[100] = {};
 string btop[100][3] = {};
-int corder[3] = {};
+int corder[100] = {};
 int dbpung = 0,bd = 0,cn = 0;
 
 
@@ -88,7 +88,7 @@ void Selecttopping()
     string Sizes, topid;
     char maxnum[50];
     bool ckp = false, cks = false, ckt = false, ckc = false, checkcha = false;
-    bool checktop = false,checknext = false,checktt = false,chrep = false,chker = false;
+    bool checktop = false,checknext = false,checktt = false,chrep = false,chker = false,chop = false;
         cout << "#<============================================>#" << endl;
         cout << "| ID |     Topping Name     | Price |   Spoon  |" << endl;
         cout << "#<-------------------------------------------->#" << endl;
@@ -99,8 +99,8 @@ void Selecttopping()
             }
         }
         cout << "#<============================================>#" << endl;
-        do
-        {
+            do
+            { 
             do
             {
                 cout << "Enter ToppingID : ";
@@ -160,6 +160,7 @@ void Selecttopping()
                                 chid = 0;
                                 ckp = false;
                             }else{
+                                chid = 1;
                                 Tunit[tno] = Tunit[tno] - 1;
                                 ckp = true;
                             }
@@ -169,10 +170,12 @@ void Selecttopping()
                 chrep = false;
                 chker = false;
             } while (ckp == false);
-            if(chid == 1){
-            chid = 0;
             chrep = false;
             chker = false;
+            if(chid == 1){
+            chid = 0;
+            do
+            {
             char checknextx;
                 if(cn < 2){
                     cout << cn + 1 << ". " << Tname[tno] << endl;
@@ -183,13 +186,18 @@ void Selecttopping()
                         corder[bd] = cn+1;
                         dbpung = bd+1;
                         cn++;
-                        checktt = false;
+                        chop = false;
+                        checktt = true;
                     }else if(checknextx == 'n'){
                         btop[bd][cn] = Tid[tno];
                         corder[bd] = cn+1;
                         dbpung = bd+1;
                         cn++;
+                         chop = true;
                         checktt = true;
+                    }else{
+                        cn = 0;
+                        chop = true;
                     }
                 }else if(cn < 3){
                     cout << cn + 1 << ". " << Tname[tno] << endl;
@@ -200,6 +208,7 @@ void Selecttopping()
                         corder[bd] = cn+1;
                         dbpung = bd+1;
                         cn++;
+                        chop = true;
                         checktt = true;
                     }else if(checknextx == 'n'){
                         cout << bd << endl;
@@ -210,11 +219,16 @@ void Selecttopping()
                         chkn = true;
                         cn = 0;
                         dbpung = bd;
+                        chop = true;
                         checktt = true;
+                    }else{
+                        cn = 0;
+                        chop = false;
                     }
                 }
-            }
         } while (checktt == false);
+            }
+        } while (chop == false);
         if(chkn == false){
         bd++;
         cn = 0;
@@ -323,7 +337,7 @@ void Orderbread()
             }else if(option == '2'){
                 ordercancel();
                 system("CLS");
-                check = false;
+                check = true;
             }else if(option == '3'){
                 check = true;
             }else{
@@ -347,14 +361,10 @@ void Addproduct()
 
     ofstream write;
     write.open("C:/Pungping/product.txt", ios::app);
-    write << "\n"
-          << ID;
-    write << "\n"
-          << pd.name;
-    write << "\n"
-          << pd.priceS;
-    write << "\n"
-          << pd.unit;
+    write << "\n" << ID;
+    write << "\n" << pd.name;
+    write << "\n" << pd.priceS;
+    write << "\n" << pd.unit;
     write.close();
     write.open("C:/Pungping/id.txt");
     write << ID;
@@ -445,25 +455,17 @@ void Updatedata()
             read >> pd.unit;
             if (pd.id != id)
             {
-                tempFile << "\n"
-                         << pd.id;
-                tempFile << "\n"
-                         << pd.name;
-                tempFile << "\n"
-                         << pd.priceS;
-                tempFile << "\n"
-                         << pd.unit;
+                tempFile << "\n" << pd.id;
+                tempFile << "\n" << pd.name;
+                tempFile << "\n" << pd.priceS;
+                tempFile << "\n" << pd.unit;
             }
             else
             {
-                tempFile << "\n"
-                         << pd.id;
-                tempFile << "\n"
-                         << newData.name;
-                tempFile << "\n"
-                         << newData.priceS;
-                tempFile << "\n"
-                         << newData.unit;
+                tempFile << "\n" << pd.id;
+                tempFile << "\n" << newData.name;
+                tempFile << "\n" << newData.priceS;
+                tempFile << "\n" << newData.unit;
             }
         }
         read.close();
