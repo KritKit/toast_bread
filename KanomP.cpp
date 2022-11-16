@@ -36,21 +36,14 @@ struct Product
     string unit;
 };
 
-/*struct Orders
+struct Orders
 {
     int OrderIds;
-    int OrderQl;
-    int OrderPid;
-    int Orderflour;
-    string OrderSize;
-    int OrderQ;
-    int OrderTT;
-    int Orderwday;
-    int Orderday;
-    int Ordermount;
-    int Orderyear;
-    string Ordertime;
-};*/
+    int Orderpung;
+    int Orderloop;
+    int Ordertid;
+};
+
 void Productlist()
 {
     int iunit;
@@ -470,7 +463,6 @@ void Orderbread()
                 system("CLS");
                 check = false;
                 }
-               
             }else{
                 check = false;
             }
@@ -681,6 +673,42 @@ void Checkfile()
     read.close();
 }
 
+void viewreportsum(){
+    Productlist();
+    Orders od;
+    int inttid,sum = 0,intp,tpung = 0,intpung;
+    ifstream read;
+    read.open("C:/Pungping/order.txt");
+    while (!read.eof())
+    {
+        read >> od.OrderIds;
+        read >> od.Orderpung;
+        read >> od.Orderloop;
+        stringstream ww;
+        ww <<  od.Orderpung;
+        ww >> intpung;
+        tpung = intpung * 10;
+        for (int i = 0; i < od.Orderloop; i++){
+            read >> od.Ordertid;
+            // cout << od.Ordertid << " " << endl;
+            for (int j = 0; j < 100; j++)
+            {
+                stringstream ss;
+                ss << Tid[j];
+                ss >> inttid;
+                if(od.Ordertid == inttid){
+                    stringstream pp;
+                    pp << Tprice[j];
+                    pp >> intp;
+                    sum += intp;
+                }
+            }
+        }
+    }
+    read.close();
+    cout << sum+tpung << endl;
+}
+
 void admin()
 {
     Checkfile();
@@ -691,42 +719,36 @@ void admin()
         cout << "2.Check" << endl;
         cout << "3.Update" << endl;
         cout << "4.Delete" << endl;
-        cout << "5.Exit" << endl;
+        cout << "5.ReportSumtotal" << endl;
+        cout << "6.Exit" << endl;
         int option;
         cout << "Enter option : ";
         cin >> option;
-        if (option == 1)
-        {
+        if (option == 1){
             system("CLS");
             Addproduct();
             check = false;
-        }
-        else if (option == 2)
-        {
+        }else if (option == 2){
             system("CLS");
             Readdata();
             check = false;
-        }
-        else if (option == 3)
-        {
+        }else if (option == 3){
             system("CLS");
             Updatedata();
             system("CLS");
             check = false;
-        }
-        else if (option == 4)
-        {
+        }else if (option == 4){
             system("CLS");
             deleteData();
             system("CLS");
             check = false;
-        }
-        else if (option == 5)
-        {
+        }else if (option == 5){
+            system("CLS");
+           viewreportsum();
+            check = false;
+        }else if (option == 6){
             check = true;
-        }
-        else
-        {
+        }else{
             system("CLS");
             check = false;
         }
