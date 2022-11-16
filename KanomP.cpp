@@ -777,22 +777,22 @@ void Creatfile()
     productfile << "\n" << "100";
 
     productfile << "\n" << "3";
-    productfile << "\n" << "";
+    productfile << "\n" << "Raidow";
     productfile << "\n" << "5";
     productfile << "\n" << "100";
 
     productfile << "\n" << "4";
-    productfile << "\n" << "";
+    productfile << "\n" << "DarkChocolate";
     productfile << "\n" << "5";
     productfile << "\n" << "100";
 
     productfile << "\n" << "5";
-    productfile << "\n" << "";
+    productfile << "\n" << "JamOrange";
     productfile << "\n" << "5";
     productfile << "\n" << "100";
 
     productfile << "\n" << "6";
-    productfile << "\n" << "";
+    productfile << "\n" << "Jamstrawbery";
     productfile << "\n" << "5";
     productfile << "\n" << "100";
     productfile.close();
