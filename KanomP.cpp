@@ -12,7 +12,7 @@ void Readdata();
 void Bread();
 
 HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-int ID, Cnum = 0, OrderID, SSumtotal = 0;
+int ID,Oid, Cnum = 0, OrderID, SSumtotal = 0;
 bool cjp;
 string Pid[100] = {};
 string Pname[100] = {};
@@ -235,6 +235,36 @@ void Selecttopping()
         }
         chkn = false;
 }
+
+void payment(){
+    int coutd,anum,ar,cra,sumtop = 0,tprices,pung = 0;
+        for (int e = 0; e < dbpung; e++)
+        {
+            for (int v = 0; v < corder[e]; v++)
+            {
+                stringstream aa;
+                aa << btop[e][v];
+                aa >> anum;
+                for (int l = 0; l < 100; l++)
+                {
+                    stringstream gh;
+                    gh << Tid[l];
+                    gh >> ar;
+                    if(anum == ar){
+                        cra = l;
+                        break;
+                    }
+                }
+                stringstream xx;
+                xx << Tprice[cra];
+                xx >> tprices;
+                sumtop += tprices;
+            }
+        }
+        pung = 10 * dbpung;
+        cout << sumtop+pung << endl;
+}
+
 void orderpung(){
         int coutd,anum,ar,cra;
         for (int e = 0; e < dbpung; e++)
@@ -268,6 +298,8 @@ void orderpung(){
             }
             cout << "#<=================================>#" << endl;
         }
+        payment();
+        cout << "#<=================================>#" << endl;
 }
 void ordercancel(){
     dbpung = 0;
@@ -282,10 +314,8 @@ void ordercancel(){
     }
 }
 
-
-
 void updateorder(int &oid){
-    cout << oid << endl;
+    // cout << oid << endl;
     string strid;
     int intunit;
     Product pd;
@@ -323,25 +353,59 @@ void updateorder(int &oid){
     rename("C:/Pungping/temp.txt", "C:/Pungping/product.txt");
 }
 
+void saveorder(int ordersid[],int topitaltol,int counttop){
+    
+    ifstream read;
+    read.open("C:/Pungping/orderid.txt");
+    if (!read.fail())
+    {
+        read >> Oid;
+    }
+    else
+    {
+        Oid = 0;
+    }
+    Oid++;
+    read.close();
+    ofstream write;
+    write.open("C:/Pungping/order.txt", ios::app);
+    write << "\n" << Oid;
+    write << "\n" << topitaltol;
+    write << "\n" << counttop;
+    for (int  i = 0; i < counttop; i++)
+    {
+        write << "\n" << ordersid[i];
+    }
+    write.close();
+    write.open("C:/Pungping/orderid.txt");
+    write << Oid;
+    write.close();
+    cout << "Data save to file" << endl;
+}
+
 void confirmorder(){
-     int coutd,anum,ar,cra,inttop;
-    for (int e = 0; e < dbpung; e++)
+    int coutd,anum,ar,cra,inttop,couttop = 0;;
+    int ordertid[100] = {};
+    for (int e = 0; e < dbpung; e++){
+        for (int v = 0; v < corder[e]; v++)
         {
-            for (int v = 0; v < corder[e]; v++)
-            {
-                stringstream tt;
-                tt << btop[e][v];
-                tt >> inttop;
-                updateorder(inttop);
-            }
+            stringstream tt;
+            tt << btop[e][v];
+            tt >> inttop;
+            ordertid[couttop] = inttop;
+            updateorder(inttop);
+            couttop++;
         }
-        ordercancel();
+    }
+    saveorder(ordertid,dbpung,couttop);
+    ordercancel();
 }
 
 void Orderbread()
 {
     Productlist();
     bool check = false;
+    char conf;
     do
     {
         cout << "NotToast OR Toast (N/T)" << endl;
@@ -395,8 +459,18 @@ void Orderbread()
                 system("CLS");
                 check = true;
             }else if(option == '3'){
+                orderpung();
+                cout << "Enter (y/n) : ";
+                cin >> conf;
+                if(conf == 'y'){
                 confirmorder();
+                 system("CLS");
                 check = true;
+                }else{
+                system("CLS");
+                check = false;
+                }
+               
             }else{
                 check = false;
             }
@@ -455,6 +529,7 @@ void Readdata()
         cout << "#<============================================>#" << endl;
     read.close();
 }
+
 int searchData()
 {
     int id;
