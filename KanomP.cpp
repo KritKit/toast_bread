@@ -533,7 +533,7 @@ void Updatedata()
     }
     else
     {
-        cout << "Record not deleted" << endl;
+        cout << "Record not updated" << endl;
     }
 }
 
